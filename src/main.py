@@ -18,10 +18,9 @@ from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 app = FastAPI()
-# app.add_middleware(HTTPSRedirectMiddleware)
 
 
 @lru_cache()
@@ -56,7 +55,6 @@ async def handle_message():
 
 @slack_app.command("/kudos")
 async def command(ack, body, client):
-    print(get_settings().slack_scopes)
     if body.get('text', None) == "help":
         await ack(f'To use Kudosbot, just type in /kudos and press enter in any chat.');
         return
@@ -70,7 +68,7 @@ async def command(ack, body, client):
 @slack_app.view('kudos_modal')
 async def handle_kudos_submission(ack, body, client, logger):
     data = body
-
+    logger.debug(f"Data: {data}")
     values = data['view']['state']['values']
     channel_id = values['channel']['id']['selected_channel']
     message = values['custom']['message']['value']
@@ -125,7 +123,6 @@ async def install(req: Request):
     url = await slack_app.oauth_flow.build_authorize_url(state=state, request=req)
     res = RedirectResponse(url=url, status_code=302)
     res.set_cookie('slack-app-oauth-state', state)
-    print(url)
     return res
 
 
