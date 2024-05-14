@@ -1,5 +1,6 @@
 services:
   kudosbot:
+    container_name: kudosbot
     image: kudosbot
     build:
       context: .
