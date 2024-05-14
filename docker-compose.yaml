@@ -9,4 +9,5 @@ services:
       - "7212:7212"
     volumes:
       - .:/app
+      - ./slackapp.db:/app/slackapp.db
     command: uvicorn src.main:app --host 0.0.0.0 --port 7212 --env-file .env
