@@ -62,7 +62,7 @@ async def command(ack, body, client):
         return
     else:
         await ack()
-        with open('./modal/kudos.json') as f:
+        with open('/app/src/modal/kudos.json') as f:
             data = json.load(f)
         await client.views_open(trigger_id=body['trigger_id'], view=data)
 
