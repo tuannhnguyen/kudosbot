@@ -18,7 +18,7 @@ from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 app = FastAPI()
 
